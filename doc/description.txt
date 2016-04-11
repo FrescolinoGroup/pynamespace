@@ -1,1 +1,1 @@
-This should describe the module very briefly (about one sentence). 
+Provides "namespaces" for python, in its core a upgraded dictionary.
