@@ -62,20 +62,17 @@ class NamespaceHull(object):
             raise ValueError(formstr.format(", ".join(res)))
 
     def __str__(self):
-
-        def _print_item(key):
-            shortstr = shorten(self[key])
-            return tc.green_bold("{:<10}".format(key)) + " = " + tc.green(shortstr)
-
-        res = []
-
         keys = list(self.keys())
-        if self._sorted_print:
+        if not isinstance(self, OrderedDict):
             keys = sorted(keys)
 
+        max_key_len = max(len(k) for k in keys)
+        format_str = '{t.green_bold}{:<' + str(max_key_len) + '}{t.normal} = {t.green}{}{t.normal}'
+
+        res = []
         for k in keys:
-            res.append(_print_item(k))
+            res.append(format_str.format(k, self[k], t=tc))
         return  "\n".join(res)
 
-Namespace = export(type("Namespace", (NamespaceHull, dict), dict(_sorted_print=True)))
-OrderedNamespace = export(type("OrderedNamespace", (NamespaceHull, OrderedDict), dict(_sorted_print=False)))
+Namespace = export(type("Namespace", (NamespaceHull, dict), dict()))
+OrderedNamespace = export(type("OrderedNamespace", (NamespaceHull, OrderedDict), dict()))
