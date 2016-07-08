@@ -32,7 +32,7 @@ setup(
     include_package_data=True,
     author='C. Frescolino',
     author_email='frescolino@lists.phys.ethz.ch',
-    install_requires=['fsc.export', 'fsc.formatting']
+    install_requires=['blessings', 'fsc.export', 'fsc.formatting'],
     description=description,
     long_description=readme,
     classifiers=[

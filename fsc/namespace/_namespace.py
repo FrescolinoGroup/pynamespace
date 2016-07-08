@@ -38,12 +38,12 @@ class NamespaceHull(object):
     def __delattr__(self, key):
         del self[key]
 
-    def assert_existence(self, *attributes):
+    def assert_existence(self, *attrs):
         """
-        Make sure every key in attributes is in the namespace.
+        Make sure every key in attrs is in the namespace.
 
-        attributes:
-            attributes:  arbitrary number of keys (str) that needs to be in the namespace.
+        attrs:
+            attrs:  arbitrary number of keys (str) that needs to be in the namespace.
 
         Returns:
             None
@@ -51,7 +51,7 @@ class NamespaceHull(object):
         Raises:
             ValueError: in case some keys are missing.
         """
-        res = list(set(attributes).difference(set(self.keys())))
+        res = list(set(attrs).difference(set(self.keys())))
 
         if res:
             ep = error_prefix(self)
@@ -67,12 +67,14 @@ class NamespaceHull(object):
             keys = sorted(keys)
 
         max_key_len = max(len(k) for k in keys)
-        format_str = '{t.green_bold}{:<' + str(max_key_len) + '}{t.normal} = {t.green}{}{t.normal}'
+        format_str = '{:<' + str(max_key_len) + '} = {}'
 
         res = []
         for k in keys:
             res.append(format_str.format(k, self[k], t=tc))
         return  "\n".join(res)
 
-Namespace = export(type("Namespace", (NamespaceHull, dict), dict()))
-OrderedNamespace = export(type("OrderedNamespace", (NamespaceHull, OrderedDict), dict()))
+Namespace = type("Namespace", (NamespaceHull, dict), dict())
+OrderedNamespace = type("OrderedNamespace", (NamespaceHull, OrderedDict), dict())
+export(Namespace)
+export(OrderedNamespace)
