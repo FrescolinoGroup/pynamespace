@@ -22,6 +22,10 @@ except IOError:
 with open('version.txt', 'r') as f:
     version = f.read().strip()
 
+requirements = ['blessings', 'fsc.export', 'fsc.formatting']
+if sys.version_info < (3,):
+    requirements.append('fsc')
+
 setup(
     name=pkgname_qualified,
     version=version,
@@ -32,7 +36,7 @@ setup(
     include_package_data=True,
     author='C. Frescolino',
     author_email='frescolino@lists.phys.ethz.ch',
-    install_requires=['blessings', 'fsc.export', 'fsc.formatting'],
+    install_requires=requirements,
     description=description,
     long_description=readme,
     classifiers=[
