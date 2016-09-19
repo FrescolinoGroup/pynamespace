@@ -5,6 +5,7 @@
 # Date:    30.03.2016 00:29:06 CEST
 # File:    setup.py
 
+import sys
 
 from setuptools import setup
 
